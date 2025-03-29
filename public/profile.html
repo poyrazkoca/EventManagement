@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+</head>
+<body>
+<h1>User Profile</h1>
+<p id="username"></p>
+<p id="email"></p>
+
+<script>
+    fetch('../backend/profile.php')
+        .then(response => response.json())
+        .then(user => {
+            document.getElementById('username').textContent = "Username: " + user.username;
+            document.getElementById('email').textContent = "Email: " + user.email;
+        });
+</script>
+</body>
+</html>
