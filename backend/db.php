@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
-$dbname = 'event_management';
-$username = 'root';
-$password = '';
+$dbname = 'event-management';
+$username = 'root';  // Default XAMPP MySQL username
+$password = '';  // Default XAMPP MySQL password is empty
 
 try {
     $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -11,4 +11,3 @@ try {
     die("Connection failed: " . $e->getMessage());
 }
 ?>
-
