@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Profile</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>User Profile</h1>
-<p id="username"></p>
-<p id="email"></p>
+<div class="container">
+    <h2>User Profile</h2>
+    <div id="profileDetails"></div>
+    <button onclick="logout()">Logout</button>
+</div>
 
 <script>
-    fetch('../backend/profile.php')
-        .then(response => response.json())
-        .then(user => {
-            document.getElementById('username').textContent = "Username: " + user.username;
-            document.getElementById('email').textContent = "Email: " + user.email;
+    fetch('backend/get_user.php')
+        .then(res => res.json())
+        .then(data => {
+            if (data) {
+                document.getElementById('profileDetails').innerHTML = `
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Email:</strong> ${data.email}</p>
+          `;
+            } else {
+                window.location.href = 'login.html';
+            }
         });
+
+    function logout() {
+        fetch('backend/logout.php')
+            .then(() => {
+                window.location.href = 'login.html';
+            });
+    }
 </script>
 </body>
 </html>
