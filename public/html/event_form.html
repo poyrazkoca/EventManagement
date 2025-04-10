@@ -12,6 +12,7 @@
         <input type="text" name="title" placeholder="Event Title" required>
         <textarea name="description" placeholder="Event Description" required></textarea>
         <input type="date" name="event_date" required>
+        <input type="text" name="location" placeholder="Event Location" required>
         <button type="submit">Add Event</button>
     </form>
     <div id="message"></div>
@@ -22,7 +23,7 @@
         e.preventDefault();
         const formData = new FormData(this);
 
-        fetch('backend/add_event.php', {
+        fetch('../../backend/create_event.php', {
             method: 'POST',
             body: formData
         })

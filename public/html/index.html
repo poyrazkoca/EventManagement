@@ -8,7 +8,32 @@
     <script src="main.js" defer></script>
 </head>
 <body>
-    <h1>Upcoming Events</h1>
-    <ul id="eventList"></ul>
+<h1>Upcoming Events</h1>
+<ul id="eventList"></ul>
+
+<script>
+    // Fetch events from the backend and display them
+    fetch('../../backend/read_events.php')
+        .then(res => res.json())  // Parse the response as JSON
+        .then(events => {
+            const eventList = document.getElementById('eventList');
+            eventList.innerHTML = '';  // Clear any existing content
+
+            // Loop through the events and create list items
+            events.forEach(event => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                        <h3>${event.title}</h3>
+                        <p>${event.description}</p>
+                        <p><strong>Date:</strong> ${event.event_date}</p>
+                        <p><strong>Location:</strong> ${event.location}</p>
+                    `;
+                eventList.appendChild(li);  // Add the event to the list
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+        });
+</script>
 </body>
 </html>

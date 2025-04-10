@@ -13,7 +13,7 @@
 </div>
 
 <script>
-    fetch('backend/get_user.php')
+    fetch('../../backend/profile.php')
         .then(res => res.json())
         .then(data => {
             if (data) {
@@ -27,7 +27,7 @@
         });
 
     function logout() {
-        fetch('backend/logout.php')
+        fetch('../../backend/logout.php')
             .then(() => {
                 window.location.href = 'login.html';
             });
