@@ -1,12 +1,13 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     fetch('backend/read_events.php')
-        .then(response => response.json())
+        .then(res => res.json())
         .then(events => {
-            let eventList = document.getElementById('eventList');
+            const list = document.getElementById('eventList');
+            list.innerHTML = '';
             events.forEach(event => {
-                let li = document.createElement('li');
-                li.textContent = `${event.title} - ${event.event_date}`;
-                eventList.appendChild(li);
+                const li = document.createElement('li');
+                li.textContent = `${event.title} - ${event.event_date} @ ${event.location}`;
+                list.appendChild(li);
             });
         });
 });

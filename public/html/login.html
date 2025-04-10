@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Register | Event Management</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Login | Event Management</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <div class="container">
-    <h2>Register</h2>
-    <form id="registerForm">
-        <input type="text" name="name" placeholder="Full Name" required>
+    <h2>Login</h2>
+    <form id="loginForm">
         <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
     </form>
-    <p>Already have an account? <a href="login.html">Login here</a></p>
+    <p>Don't have an account? <a href="register.html">Register here</a></p>
     <div id="message"></div>
 </div>
 
 <script>
-    document.getElementById('registerForm').addEventListener('submit', function(e) {
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const formData = new FormData(this);
 
-        fetch('backend/register.php', {
+        fetch('backend/login.php', {
             method: 'POST',
             body: formData
         })
@@ -32,7 +31,7 @@
             .then(data => {
                 document.getElementById('message').innerHTML = data;
                 if (data.includes('success')) {
-                    window.location.href = 'login.html';
+                    window.location.href = 'index.html';
                 }
             });
     });
