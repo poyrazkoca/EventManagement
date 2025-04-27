@@ -11,3 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 });
+
+const toggleThemeButton = document.querySelector("#toggle-theme");
+if (toggleThemeButton) {
+    toggleThemeButton.addEventListener("click", () => {
+        document.body.classList.toggle("dark");
+    });
+}

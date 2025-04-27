@@ -1,48 +1,140 @@
-/* style.css */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Light Mode */
 body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    background: linear-gradient(to bottom right, #ffecd2, #fcb69f);
+    color: #333;
     min-height: 100vh;
+    padding: 2rem;
+    transition: background 0.3s, color 0.3s;
 }
 
-.container {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 400px;
-}
-
-h2 {
+h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
 }
 
-input, textarea, button {
+/* Dark Mode */
+body.dark {
+    background: linear-gradient(to bottom right, #232526, #414345);
+    color: #eee;
+}
+
+/* Navbar/Profile Button */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.navbar a, .profile-button {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 12px;
+    transition: background 0.3s;
+}
+
+.navbar a:hover, .profile-button:hover {
+    background: #ff4757;
+}
+
+/* Event List */
+ul#eventList {
+    list-style-type: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+ul#eventList li {
+    background: white;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Form Styling */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+form input, form textarea, form button {
     width: 100%;
-    margin: 10px 0;
-    padding: 10px;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    border-radius: 4px;
 }
 
-button {
-    background: #007BFF;
+form button {
+    background: #48dbfb;
     color: white;
     border: none;
-    cursor: pointer;
 }
 
-button:hover {
-    background: #0056b3;
+form button:hover {
+    background: #0abde3;
 }
 
-#message {
-    margin-top: 10px;
-    color: green;
-    text-align: center;
+/* Toasts */
+.toast {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+    z-index: 1000;
+    animation: fadeOut 3s forwards;
+}
+
+.toast.success {
+    background: #2ed573;
+}
+
+.toast.error {
+    background: #ff4757;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; display: none; }
+}
+
+/* Profile Modal */
+.modal {
+    position: fixed;
+    top: 10%;
+    right: 10%;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 2000;
+}
+
+/* Fun Animations */
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+ul#eventList li {
+    animation: pop 0.5s ease-in-out;
 }
