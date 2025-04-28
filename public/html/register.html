@@ -4,6 +4,24 @@
     <meta charset="UTF-8">
     <title>Register | Event Management</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Style for the message container */
+        #message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50; /* Green background for success message */
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            display: none; /* Hide the message by default */
+        }
+
+        /* If there is an error message */
+        #errorMessage {
+            background-color: #f44336; /* Red background for error message */
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -30,9 +48,15 @@
         })
             .then(res => res.text())
             .then(data => {
-                document.getElementById('message').innerHTML = data;
+                const messageElement = document.getElementById('message');
+                messageElement.style.display = 'block'; // Show the message
+                messageElement.innerHTML = data;
+
                 if (data.includes('success')) {
-                    window.location.href = 'login.html';
+                    messageElement.innerHTML = "Registration successful! Redirecting to login page...";
+                    setTimeout(() => {
+                        window.location.href = 'login.html'; // Redirect to login page
+                    }, 2000); // Wait for 2 seconds before redirect
                 }
             });
     });

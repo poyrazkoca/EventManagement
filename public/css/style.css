@@ -138,3 +138,57 @@ form button:hover {
 ul#eventList li {
     animation: pop 0.5s ease-in-out;
 }
+
+/* Styling the navigation bar */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;  /* Align links horizontally */
+    justify-content: space-around;  /* Evenly space out links */
+    background-color: #333;  /* Dark background color */
+}
+
+nav ul li {
+    display: inline;  /* Display list items inline */
+}
+
+nav ul li a {
+    color: white;  /* White text */
+    text-decoration: none;  /* Remove underline */
+    padding: 14px 20px;  /* Add padding to each link */
+    display: block;  /* Make links block-level to add padding */
+}
+
+nav ul li a:hover {
+    background-color: #575757;  /* Darker background on hover */
+}
+
+/* General styling for the confirmation message */
+#message {
+    margin-top: 20px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    display: none; /* Hidden by default, will be shown after form submission */
+}
+
+/* Style for the message container */
+#message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4CAF50; /* Green background for success message */
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    display: none; /* Hide the message by default */
+}
+
+/* If there is an error message */
+#errorMessage {
+    background-color: #f44336; /* Red background for error message */
+}
+

@@ -7,6 +7,14 @@
 </head>
 <body>
 <div class="container">
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="event_form.html">Add Event</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="register.html">New Account</a></li>
+        </ul>
+    </nav>
     <h2>Add New Event</h2>
     <form id="eventForm">
         <input type="text" name="title" placeholder="Event Title" required>
@@ -17,6 +25,7 @@
     </form>
     <div id="message"></div>
 </div>
+
 
 <script>
     document.getElementById('eventForm').addEventListener('submit', function(e) {

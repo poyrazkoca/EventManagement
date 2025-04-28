@@ -8,18 +8,25 @@
     <script src="main.js" defer></script>
 </head>
 <body>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="event_form.html">Add Event</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="register.html">New Account</a></li>
+            </ul>
+        </nav>
+
 <h1>Upcoming Events</h1>
 <ul id="eventList"></ul>
 
 <script>
-    // Fetch events from the backend and display them
     fetch('../../backend/read_events.php')
-        .then(res => res.json())  // Parse the response as JSON
+        .then(res => res.json())
         .then(events => {
             const eventList = document.getElementById('eventList');
-            eventList.innerHTML = '';  // Clear any existing content
+            eventList.innerHTML = '';
 
-            // Loop through the events and create list items
             events.forEach(event => {
                 const li = document.createElement('li');
                 li.innerHTML = `
@@ -28,7 +35,7 @@
                         <p><strong>Date:</strong> ${event.event_date}</p>
                         <p><strong>Location:</strong> ${event.location}</p>
                     `;
-                eventList.appendChild(li);  // Add the event to the list
+                eventList.appendChild(li);
             });
         })
         .catch(error => {
