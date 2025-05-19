@@ -9,17 +9,18 @@
         #message {
             margin-top: 20px;
             padding: 10px;
-            background-color: #4CAF50; /* Green background for success message */
-            color: white;
             border-radius: 5px;
             text-align: center;
             font-size: 16px;
-            display: none; /* Hide the message by default */
+            display: none;
         }
-
-        /* If there is an error message */
-        #errorMessage {
-            background-color: #f44336; /* Red background for error message */
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .error {
+            background-color: #f44336;
+            color: white;
         }
     </style>
 </head>
@@ -46,9 +47,23 @@
         e.preventDefault();
 
         const formData = new FormData(this);
-        const email = formData.get("email");
+        const username = formData.get("username").trim();
+        const email = formData.get("email").trim();
+        const password = formData.get("password");
 
-        // TEDU email kontrolü (ön kontrol)
+        // Boş alan kontrolü
+        if (!username || !email || !password) {
+            showMessage("Please fill in all fields.", "error");
+            return;
+        }
+
+        // Şifre uzunluk kontrolü
+        if (password.length < 6) {
+            showMessage("Password must be at least 6 characters.", "error");
+            return;
+        }
+
+        // TEDU email kontrolü
         if (!email.endsWith("@tedu.edu.tr")) {
             showMessage("Please use a TEDU email address (e.g. name.surname@tedu.edu.tr)", "error");
             return;

@@ -1,51 +1,28 @@
 <?php
+session_start();
 include 'db.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['id'])) {
-    $id = $_GET['id'];
+if (!isset($_SESSION['user_id'])) {
+    die("Unauthorized access");
+}
 
-    $stmt = $conn->prepare("UPDATE events SET
-        event_type = ?, 
-        organizer = ?, 
-        title = ?, 
-        description = ?, 
-        event_date = ?, 
-        location = ?, 
-        age_limit = ?, 
-        capacity = ?, 
-        dress_code = ?, 
-        rules = ?, 
-        contact_instagram = ?, 
-        contact_email = ?, 
-        contact_phone = ?, 
-        ticket_location = ?
-        WHERE id = ?
-    ");
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $event_id = $_POST['event_id'];
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+    $event_date = $_POST['event_date'];
+    $location = $_POST['location'];
 
-    $success = $stmt->execute([
-        $_POST['event_type'],
-        $_POST['organizer'],
-        $_POST['title'],
-        $_POST['description'],
-        $_POST['event_date'],
-        $_POST['location'],
-        $_POST['age_limit'],
-        $_POST['capacity'],
-        $_POST['dress_code'],
-        $_POST['rules'],
-        $_POST['contact_instagram'],
-        $_POST['contact_email'],
-        $_POST['contact_phone'],
-        $_POST['ticket_location'],
-        $id
-    ]);
+    if (!$title || !$description || !$event_date || !$location) {
+        echo "Please fill in all required fields.";
+        exit;
+    }
 
-    if ($success) {
+    $stmt = $conn->prepare("UPDATE events SET title=?, description=?, event_date=?, location=? WHERE id=? AND user_id=?");
+    if ($stmt->execute([$title, $description, $event_date, $location, $event_id, $_SESSION['user_id']])) {
         echo "Event updated successfully!";
     } else {
-        echo "Update failed.";
+        echo "Error updating event.";
     }
-} else {
-    echo "Invalid request.";
 }
 ?>
