@@ -1,0 +1,663 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+/* Light Mode */
+body {
+    background-color: rgb(0, 49, 90);
+    color: #333;
+    min-height: 100vh;
+    padding: 2rem;
+    transition: background 0.3s, color 0.3s;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Dark Mode */
+body.dark {
+    background: linear-gradient(to bottom right, #232526, #414345);
+    color: #eee;
+}
+
+/* Navbar/Profile Button */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.navbar a, .profile-button {
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    background: #ff6b6b;
+    color: white;
+    border-radius: 12px;
+    transition: background 0.3s;
+}
+
+.navbar a:hover, .profile-button:hover {
+    background: #ff4757;
+}
+
+/* Event List */
+ul#eventList {
+    list-style-type: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+ul#eventList li {
+    background: white;
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Form Styling */
+form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+form button {
+    background: white;
+    color: #ed7e09;
+    border: 2px solid #ed7e09;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+form button:hover {
+    background: #ed7e09;
+    color: white;
+}
+
+/* Toasts */
+.toast {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 1rem;
+    border-radius: 10px;
+    color: white;
+    z-index: 1000;
+    animation: fadeOut 3s forwards;
+}
+
+.toast.success {
+    background: #2ed573;
+}
+
+.toast.error {
+    background: #ff4757;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; display: none; }
+}
+
+/* Profile Modal */
+.modal {
+    position: fixed;
+    top: 10%;
+    right: 10%;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+    display: none;
+    z-index: 2000;
+}
+
+/* Fun Animations */
+@keyframes pop {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+ul#eventList li {
+    animation: pop 0.5s ease-in-out;
+}
+
+nav {
+    background-color: white;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+}
+
+nav ul li {
+    flex: 1;
+    text-align: center;
+}
+
+nav ul li a {
+    display: block;
+    padding: 1rem 0;
+    text-decoration: none;
+    color: #ed7e09;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #ed7e09;
+    color: white;
+}
+
+
+
+
+
+/* General styling for the confirmation message */
+#message {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 20px;
+    display: none;
+    transition: all 0.3s ease;
+}
+
+#message.success {
+    background-color: #4CAF50; /* yeşil */
+    color: white;
+}
+
+#message.error {
+    background-color: #f44336; /* kırmızı */
+    color: white;
+}
+
+
+.container {
+    padding: 2rem;
+    color: #ed7e09; 
+    align-items: center;
+    text-align: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    
+}
+
+
+h2 {
+    margin-bottom: 1.5rem;
+}
+
+.container p {
+    margin-top: 1.5rem;
+}
+
+.container a {
+    color: #aad8ff;
+    text-decoration: underline;
+}
+
+.main-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ed7e09;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 3rem;
+    position: relative;
+    animation: slideFadeIn 1s ease-out;
+}
+
+.main-title::after {
+    content: "";
+    display: block;
+    width: 80px;
+    height: 4px;
+    background-color: #ed7e09;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+@keyframes slideFadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+/* NAVBAR for home-page */
+.home-page nav {
+    margin-top: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: white; /* nav arka plan kaybolmasın diye */
+}
+
+/* İçerik kaymasın diye boşluk bırak */
+.home-page main,
+.home-page .container {
+    margin-top: 60px; /* nav yüksekliği kadar */
+}
+
+.home-page nav ul li a {
+    color: #ed7e09;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    display: block;
+    padding: 1rem 0;
+}
+
+.home-page nav ul li a:hover {
+    background-color: #ed7e09;
+    color: white;
+}
+
+.form-page nav {
+    margin-top: 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    background-color: white; /* nav arka plan kaybolmasın diye */
+}
+
+
+.form-page nav ul li a {
+    color: #ed7e09;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+    display: block;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.form-page nav ul li a:hover {
+    background-color: #ed7e09;
+    color: white;
+}
+
+.form-page h2,
+.form-page strong {
+    color: #ed7e09;
+}
+
+.profile-box {
+    background-color: white;
+    max-width: 500px;
+    margin: 3rem auto;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-box h2 {
+    color: #ed7e09;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.profile-box p {
+    font-size: 1.1rem;
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.profile-box strong {
+    color: #ed7e09;
+}
+
+.logout-btn {
+    margin-top: 1.5rem;
+    background-color: #ed7e09;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #d86f07;
+}
+
+.event-share {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.event-share a {
+    margin-right: 1rem;
+    text-decoration: none;
+    color: #ed7e09;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.event-share a:hover {
+    color: #ff6600;
+}
+
+select.highlight-select {
+    font-size: 1rem;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 2px solid #ed7e09;
+    background-color: #fff8f0;
+    border-radius: 6px;
+    font-weight: bold;
+    color: #ed7e09;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+select.highlight-select:focus {
+    border-color: #ff6600;
+    outline: none;
+    background-color: #fff0e6;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 2rem auto;
+    justify-content: center;
+}
+
+.filters select {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 2px solid #ed7e09;
+    background-color: #fff8f0;
+    color: #ed7e09;
+    font-weight: bold;
+}
+
+.info-btn {
+    background-color: #ed7e09;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.info-btn:hover {
+    background-color: #d86f07;
+}
+
+.info-details {
+    background-color: #fff3e0;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.badge {
+    display: inline-block;
+    background-color: #ed7e09;
+    color: white;
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-top: 6px;
+    font-weight: bold;
+}
+
+.emoji {
+    margin-right: 6px;
+}
+
+.info-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    background-color: #fff3e0;
+    padding: 0 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+}
+
+.info-details.show {
+    max-height: 300px;
+    opacity: 1;
+    padding: 10px;
+}
+
+ul#eventList li {
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+ul#eventList li:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* ------------------------------------------ */
+/* 🎨 Event Form Sayfası - Ekstra Güzelleştirme */
+/* ------------------------------------------ */
+
+/* Fade-in animasyonu */
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-in {
+    animation: fadeInUp 0.6s ease both;
+  }
+  
+  /* Form alt açıklaması */
+  .form-subtitle {
+    color: #ed7e09;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+  }
+  
+  /* Focus ve hover efekti */
+  form input:focus,
+  form textarea:focus,
+  form select:focus {
+    border-color: #ed7e09;
+    outline: none;
+    box-shadow: 0 0 5px rgba(237, 126, 9, 0.5);
+    background-color: #fffef9;
+  }
+  
+  /* Geçiş yumuşatma */
+  form input,
+  form textarea,
+  form select {
+    transition: all 0.3s ease;
+  }
+  
+  /* Add Event butonu büyütme efekti */
+  .add-btn {
+    transform: scale(1);
+    transition: transform 0.3s ease;
+  }
+  .add-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Eğer index.html'deki badge kullanıldıysa */
+  .badge {
+    display: inline-block;
+    background-color: #ed7e09;
+    color: white;
+    font-size: 0.85rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-top: 6px;
+    font-weight: bold;
+  }
+  
+  /* Emoji boşluğu */
+  .emoji {
+    margin-right: 6px;
+  }
+  
+  /* Info butonları için yumuşak açılma */
+  .info-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    background-color: #fff3e0;
+    padding: 0 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+    font-size: 0.95rem;
+  }
+  .info-details.show {
+    max-height: 300px;
+    opacity: 1;
+    padding: 10px;
+  }  
+
+  /* ------------------------------------ */
+/* 👤 Profile Sayfası İyileştirmeleri */
+/* ------------------------------------ */
+
+.welcome-text {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 500;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.profile-photo {
+    display: block;
+    margin: 1rem auto 0;
+    max-width: 150px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+/* fadeInUp zaten daha önce tanımlandıysa tekrar ekleme */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -------------------------------- */
+/* 🌐 Common Footer Styling */
+/* -------------------------------- */
+.site-footer {
+    width: 100%;
+    background-color: white;
+    color: #ed7e09;
+    text-align: center;
+    padding: 1rem 0;
+    font-size: 0.95rem;
+    font-weight: bold;
+    border-top: 2px solid #ed7e09;
+    margin-top: 4rem;
+    position: relative;
+    bottom: 0;
+  }
+  
+  .site-footer p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .event-actions {
+    margin-top: 10px;
+}
+
+.event-actions button {
+    margin-right: 10px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #ed7e09;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.event-actions button:hover {
+    background-color: #d86f07;
+}
+#message {
+    display: none; /* Başta gizliyse */
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #e6f9e6;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+}
+
+
+  
+
+

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Event</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container">
+    <nav>
+        <ul>
+            <li><a href="index.html" style="color: #ed7e09;">Home</a></li>
+            <li><a href="event_form.html" style="color: #ed7e09;">Add Event</a></li>
+            <li><a href="profile.html" style="color: #ed7e09;">Profile</a></li>
+            <li><a href="register.html" style="color: #ed7e09;">New Account</a></li>
+        </ul>
+        
+    </nav>
+    <title>Edit Event</title>
+<h2 class="main-title">✏️ Edit Event</h2>
+
+
+    <form id="eventForm">
+        <select name="event_type" class="highlight-select">
+            <option value="">Select Event Type (optional)</option>
+            <option value="Konser">Concert</option>
+            <option value="Şenlik">Festival</option>
+            <option value="TEDU400">TEDU400</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Sempozyum">Symposium</option>
+            <option value="Movie Night">Movie Night</option>
+            <option value="Diğer">Other</option>
+        </select>
+        <select name="organizer" class="highlight-select">
+            <option value="">🎤 Organizer (optional)</option>
+            <option value="TEDUCC">TEDUCC</option>
+            <option value="Topluluklar">Topluluklar</option>
+            <option value="İstasyonTEDU">İstasyonTEDU</option>
+            <option value="TEDUSEM">TEDUSEM</option>
+            <option value="TEDUELS">TEDUELS</option>
+        </select>        
+        <input type="text" name="title" placeholder="Event Title" required>
+        <textarea name="description" placeholder="Event Description" required></textarea>
+        <input type="date" name="event_date" required>
+        <input type="text" name="location" placeholder="Event Location" required>
+        
+        
+        <input type="text" name="age_limit" placeholder="Age Limit (optional)">
+        <input type="text" name="capacity" placeholder="Capacity (optional)">
+        <input type="text" name="dress_code" placeholder="Dress Code (optional)">
+        <textarea name="rules" placeholder="Additional Rules or Notes (optional)"></textarea>
+        
+        <input type="text" name="contact_instagram" placeholder="Instagram (optional)">
+        <input type="email" name="contact_email" placeholder="Email (optional)">
+        <input type="tel" name="contact_phone" placeholder="Phone Number (optional)">
+        <input type="text" name="ticket_location" placeholder="Ticket Location (optional)">
+
+        
+        <button type="submit">Add Event</button>
+        
+    </form>
+    <div id="message"></div>
+</div>
+
+
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const editId = urlParams.get('id');
+
+    // Eğer edit modundaysak, ilgili verileri çek ve formu doldur
+    if (editId) {
+        fetch(`../../backend/get_event.php?id=${editId}`)
+            .then(res => res.json())
+            .then(event => {
+                document.querySelector('[name="event_type"]').value = event.event_type;
+                document.querySelector('[name="organizer"]').value = event.organizer;
+                document.querySelector('[name="title"]').value = event.title;
+                document.querySelector('[name="description"]').value = event.description;
+                document.querySelector('[name="event_date"]').value = event.event_date;
+                document.querySelector('[name="location"]').value = event.location;
+                document.querySelector('[name="age_limit"]').value = event.age_limit;
+                document.querySelector('[name="capacity"]').value = event.capacity;
+                document.querySelector('[name="dress_code"]').value = event.dress_code;
+                document.querySelector('[name="rules"]').value = event.rules;
+                document.querySelector('[name="contact_instagram"]').value = event.contact_instagram;
+                document.querySelector('[name="contact_email"]').value = event.contact_email;
+                document.querySelector('[name="contact_phone"]').value = event.contact_phone;
+                document.querySelector('[name="ticket_location"]').value = event.ticket_location;
+
+                // Buton metnini güncelle
+                document.querySelector('button[type="submit"]').textContent = "Update Event";
+            });
+    }
+
+    // Form gönderme işlemi
+    document.getElementById('eventForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        const endpoint = editId
+            ? `../../backend/update_event.php?id=${editId}`
+            : `../../backend/create_event.php`;
+
+        fetch(endpoint, {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+.then(data => {
+    if (editId) {
+        const messageDiv = document.getElementById('message');
+        messageDiv.innerHTML = "✅ Event updated successfully. Redirecting to homepage...";
+        messageDiv.style.display = "block";
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 1500);
+    } else {
+        document.getElementById('message').innerHTML = data;
+        this.reset();
+    }
+});
+
+    });
+
+</script>
+
+
+<footer class="site-footer">
+    <p>&copy; 2025 Event Management | Designed by Emir Aydın and Poyraz Koca</p>
+  </footer>
+
+</body>
+</html>

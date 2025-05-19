@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
+    <title>Event Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+   
+    
+</head>
+
+<body>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="event_form.html">Add Event</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="register.html">New Account</a></li>
+            </ul>
+        </nav>
+
+        <h1 class="main-title">Upcoming Events</h1>
+        <div class="filters">
+            <select id="sortFilter">
+                <option value="newest">Newest</option>
+                <option value="date-asc">Date-Asc</option>
+                <option value="date-desc">Date-Desc</option>
+            </select>
+        
+            <select id="organizerFilter">
+                <option value="">ALL</option>
+                <option value="TEDUCC">TEDUCC</option>
+                <option value="Topluluklar">Society</option>
+                <option value="İstasyonTEDU">İstasyonTEDU</option>
+                <option value="TEDUSEM">TEDUSEM</option>
+                <option value="TEDUELS">TEDUELS</option>
+            </select>
+        </div>
+        
+<ul id="eventList"></ul>
+
+<div id="message" style="display:none;"></div>
+
+
+<script>
+    let allEvents = [];
+    
+    fetch('../../backend/read_events.php')
+        .then(res => res.json())
+        .then(events => {
+            allEvents = events;
+            renderEvents(events);
+            setupFilters(); // filtre dinleyicileri aktif et
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+        });
+    
+        function renderEvents(events) {
+    const eventList = document.getElementById('eventList');
+    eventList.innerHTML = '';
+
+    events.forEach(event => {
+        const li = document.createElement('li');
+
+        const shareText = encodeURIComponent(`Check out this event: ${event.title}`);
+        const shareUrl = encodeURIComponent("https://example.com");
+
+        li.innerHTML = `
+            <h3><span class="emoji">🎉</span> ${event.title}</h3>
+            <p>${event.description}</p>
+            <p><strong>Date:</strong> ${event.event_date}</p>
+            <p><strong>Location:</strong> ${event.location}</p>
+            ${event.event_type ? `<span class="badge">${event.event_type}</span>` : ''}
+            ${event.organizer ? `<p><strong>Organizer:</strong> ${event.organizer}</p>` : ''}
+            ${event.age_limit ? `<p><strong>Age Limit:</strong> ${event.age_limit}</p>` : ''}
+            ${event.capacity ? `<p><strong>Capacity:</strong> ${event.capacity}</p>` : ''}
+            ${event.dress_code ? `<p><strong>Dress Code:</strong> ${event.dress_code}</p>` : ''}
+            ${event.rules ? `<p><strong>Rules:</strong> ${event.rules}</p>` : ''}
+
+            <button class="info-btn">ℹ️ Info</button>
+            <div class="info-details" style="display: none; margin-top: 10px;">
+                ${event.contact_instagram ? `<p><strong>Instagram:</strong> ${event.contact_instagram}</p>` : ''}
+                ${event.contact_email ? `<p><strong>Email:</strong> ${event.contact_email}</p>` : ''}
+                ${event.contact_phone ? `<p><strong>Phone:</strong> ${event.contact_phone}</p>` : ''}
+                ${event.ticket_location ? `<p><strong>Ticket Location:</strong> ${event.ticket_location}</p>` : ''}
+            </div>
+
+            <div class="event-share">
+                <div class="event-actions">
+                <button class="edit-btn" data-id="${event.id}">✏️ Edit</button>
+                <button class="delete-btn" data-id="${event.id}">🗑️ Delete</button>
+                </div>
+
+                <span>Share:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=${shareUrl}" target="_blank">Facebook</a>
+                <a href="https://twitter.com/intent/tweet?text=${shareText} - ${shareUrl}" target="_blank">Twitter</a>
+                <a href="https://wa.me/?text=${shareText} - ${shareUrl}" target="_blank">WhatsApp</a>
+            </div>
+        `;
+
+        eventList.appendChild(li);
+    });
+
+    // Delete işlemi
+    document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        const eventElement = button.closest('li');
+        const messageDiv = document.getElementById('message');
+
+        if (confirm("Are you sure you want to delete this event?")) {
+            fetch(`../../backend/delete_event.php`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${id}`
+            })
+            .then(res => res.text())
+            .then(response => {
+                if (response.trim() === "success") {
+                    eventElement.remove(); // DOM'dan kaldır
+                    messageDiv.innerHTML = "✅ Event deleted successfully.";
+                    messageDiv.style.display = "block";
+                } else {
+                    alert("Delete failed: " + response);
+                }
+            })
+            .catch(err => {
+                console.error("Error deleting event:", err);
+                alert("Error deleting event.");
+            });
+        } else {
+            // İptal edildi
+            messageDiv.innerHTML = "❎ Deletion canceled.";
+            messageDiv.style.display = "block";
+        }
+    });
+});
+
+// Edit işlemi: form sayfasına yönlendir
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        window.location.href = `event_change.html?id=${id}`;
+    });
+});
+
+
+
+    // Info butonlarına tıklanınca detayları aç/kapat
+    document.querySelectorAll('.info-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const infoBox = button.nextElementSibling;
+            infoBox.classList.toggle('show');
+
+        });
+    });
+}
+
+    
+    function setupFilters() {
+        document.getElementById('sortFilter').addEventListener('change', applyFilters);
+        document.getElementById('organizerFilter').addEventListener('change', applyFilters);
+    }
+    
+    function applyFilters() {
+        const sortValue = document.getElementById('sortFilter').value;
+        const organizerValue = document.getElementById('organizerFilter').value;
+    
+        let filtered = [...allEvents];
+    
+        if (organizerValue) {
+            filtered = filtered.filter(e => e.organizer === organizerValue);
+        }
+    
+        if (sortValue === 'date-asc') {
+            filtered.sort((a, b) => new Date(a.event_date) - new Date(b.event_date));
+        } else if (sortValue === 'date-desc') {
+            filtered.sort((a, b) => new Date(b.event_date) - new Date(a.event_date));
+        } else if (sortValue === 'newest') {
+            filtered.reverse(); // en yeni en üstte (son eklenen)
+        }
+    
+        renderEvents(filtered);
+    }
+    </script>
+    <footer class="site-footer">
+        <p>&copy; 2025 Event Management | Designed by Emir Aydın and Poyraz Koca</p>
+      </footer>
+      
+</body>
+</html>

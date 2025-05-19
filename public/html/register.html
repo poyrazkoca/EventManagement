@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Event Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Style for the message container */
+        #message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50; /* Green background for success message */
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            display: none; /* Hide the message by default */
+        }
+
+        /* If there is an error message */
+        #errorMessage {
+            background-color: #f44336; /* Red background for error message */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Register</h2>
+    <form id="registerForm">
+        <input type="text" name="username" placeholder="Full Name" required>
+        <input 
+    type="email" 
+    name="email" 
+    placeholder="Email (must be @tedu.edu.tr)" 
+    required>
+
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+    <div id="message"></div>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const email = formData.get("email");
+
+        // TEDU email kontrolü (ön kontrol)
+        if (!email.endsWith("@tedu.edu.tr")) {
+            showMessage("Please use a TEDU email address (e.g. name.surname@tedu.edu.tr)", "error");
+            return;
+        }
+
+        fetch('../../backend/register.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then(data => {
+            const trimmed = data.trim().toLowerCase();
+
+            if (trimmed.includes("register successful")) {
+                showMessage("Registration successful! Redirecting to login page...", "success");
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+            } else {
+                showMessage(data, "error");
+            }
+        });
+
+        // Mesaj gösterme fonksiyonu
+        function showMessage(text, type) {
+            const messageElement = document.getElementById('message');
+            messageElement.textContent = text;
+            messageElement.className = type === "success" ? "success" : "error";
+            messageElement.style.display = 'block';
+
+            setTimeout(() => {
+                messageElement.style.display = 'none';
+            }, 7000);
+        }
+    });
+</script>
+
+<footer class="site-footer">
+    <p>&copy; 2025 Event Management | Designed by Emir Aydın and Poyraz Koca</p>
+  </footer>
+
+</body>
+</html>

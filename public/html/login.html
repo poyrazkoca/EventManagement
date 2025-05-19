@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Event Management</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Style for the message container */
+        #message {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50; /* Green background for success message */
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+            display: none; /* Hide the message by default */
+        }
+
+        /* If there is an error message */
+        #errorMessage {
+            background-color: #f44336; /* Red background for error message */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+    <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <div id="message"></div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('../../backend/login.php', {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.text())
+            .then(data => {
+    const messageElement = document.getElementById('message');
+    const message = data.trim().toLowerCase();
+
+    messageElement.classList.remove("success", "error");
+
+    if (message.includes("login successful")) {
+        messageElement.classList.add("success");
+        messageElement.innerHTML = "Login successful! Redirecting to homepage...";
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 2000);
+    } else {
+        messageElement.classList.add("error");
+        messageElement.innerHTML = data;
+    }
+
+    messageElement.style.display = 'block';
+});
+
+    });
+</script>
+
+<footer class="site-footer">
+    <p>&copy; 2025 Event Management | Designed by Emir Aydın and Poyraz Koca</p>
+  </footer>
+
+</body>
+</html>
