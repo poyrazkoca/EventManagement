@@ -31,6 +31,13 @@
             <option value="Movie Night">Movie Night</option>
             <option value="Diğer">Other</option>
         </select>
+
+        <form action="backend/upload_handler.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="event_id" value="<!-- Event ID here -->">
+            <input type="hidden" name="type" value="poster">
+            <input type="file" name="file">
+            <button type="submit">Upload Event Poster</button>
+
         <select name="organizer" class="highlight-select">
             <option value="">🎤 Organizer (optional)</option>
             <option value="TEDUCC">TEDUCC</option>
@@ -38,12 +45,12 @@
             <option value="İstasyonTEDU">İstasyonTEDU</option>
             <option value="TEDUSEM">TEDUSEM</option>
             <option value="TEDUELS">TEDUELS</option>
-        </select>        
+        </select>
+
         <input type="text" name="title" placeholder="Event Title" required>
         <textarea name="description" placeholder="Event Description" required></textarea>
         <input type="date" name="event_date" required>
         <input type="text" name="location" placeholder="Event Location" required>
-        
         
         <input type="text" name="age_limit" placeholder="Age Limit (optional)">
         <input type="text" name="capacity" placeholder="Capacity (optional)">
@@ -55,13 +62,11 @@
         <input type="tel" name="contact_phone" placeholder="Phone Number (optional)">
         <input type="text" name="ticket_location" placeholder="Ticket Location (optional)">
 
-        
         <button type="submit">Add Event</button>
         
     </form>
     <div id="message"></div>
 </div>
-
 
 
 <script>
@@ -113,7 +118,6 @@
             });
     });
 </script>
-
 
 <footer class="site-footer">
     <p>&copy; 2025 Event Management | Designed by Emir Aydın and Poyraz Koca</p>

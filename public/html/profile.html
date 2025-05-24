@@ -21,11 +21,14 @@
         <h2>User Profile</h2>
         <p class="welcome-text">👋 Welcome back, <span id="userNameSpan"></span>!</p>
         <div id="profileDetails"></div>
-       
-        <form id="uploadForm" enctype="multipart/form-data">
-            <input type="file" name="profileImage" accept="image/*" required>
-            <button type="submit" class="logout-btn">Upload Photo</button>
+
+        <form action="backend/upload_handler.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="user_id" value="<!-- User ID here -->">
+            <input type="hidden" name="type" value="profile">
+            <input type="file" name="file">
+            <button type="submit">Upload Profile Picture</button>
         </form>
+
         <button class="logout-btn" onclick="logout()">Logout</button>
         
         <img id="previewImage" src="#" alt="Preview" style="display:none; margin-top:1rem; max-width:150px; border-radius:50%;">
